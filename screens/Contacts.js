@@ -13,7 +13,7 @@ import { fetchContacts } from '../utils/api';
 
 const keyExtractor = ({ phone }) => phone;
 
-export default class Contracts extends React.Component {
+export default class Contacts extends React.Component {
     state = {
         contacts: [],
         loading: true,
@@ -38,9 +38,16 @@ export default class Contracts extends React.Component {
     }
 
     renderContract = ({ item }) => {
+        const { navigation: { navigate } } = this.props;
         const { name, avatar, phone } = item;
 
-        return <ContactListItem name={name} avatar={avatar} phone={phone} />
+        return (
+            <ContactListItem 
+                name={name} 
+                avatar={avatar} 
+                phone={phone} 
+                onPress={() => navigate('Profile')}
+            />);
     };
 
     render() {
