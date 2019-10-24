@@ -7,13 +7,17 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
-import ContactListItem from '../components/ContactListItem';
-
 import { fetchContacts } from '../utils/api';
+
+import ContactThumbnail from '../components/ContactThumbnail';
 
 const keyExtractor = ({ phone }) => phone;
 
-export default class Contacts extends React.Component {
+export default class Favorites extends React.Component {
+    static navigationOptions = {
+        title: 'Favorites',
+    };
+
     state = {
         contacts: [],
         loading: true,
@@ -37,36 +41,35 @@ export default class Contacts extends React.Component {
         }
     }
 
-    renderContract = ({ item }) => {
+    renderFavoriteThumbnail = ({ item }) => {
         const { navigation: { navigate } } = this.props;
-        const { name, avatar, phone } = item;
+        const { avatar } = item;
 
         return (
-            <ContactListItem 
-                name={name} 
-                avatar={avatar} 
-                phone={phone} 
+            <ContactThumbnail
+                avatar={avatar}
                 onPress={() => navigate('Profile', { contact: item })}
-            />);
+            />
+        );
     };
 
     render() {
         const { loading, contacts, error } = this.state;
-
-        const contactSorted = contacts.sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
+        const favorites = contacts.filter(contact => contact.favorite);
 
         return (
             <View style={styles.container}>
-                {loading && <ActivityIndicator size="large" />}
+                {loading && <ActivityIndicator size='large' />}
                 {error && <Text>Error...</Text>}
+
                 {!loading &&
                     !error && (
-                        <FlatList
-                            data={contactSorted}
+                        <FlatList 
+                            data={favorites}
                             keyExtractor={keyExtractor}
-                            renderItem={this.renderContract}
+                            numColumns={3}
+                            contentContainerStyle={styles.list}
+                            renderItem={this.renderFavoriteThumbnail}
                         />
                     )
                 }
@@ -80,5 +83,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'center',
         flex: 1,
+    },
+    list: {
+        alignItems: 'center',
     },
 });

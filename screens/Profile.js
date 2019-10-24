@@ -20,11 +20,14 @@ export default class Profile extends React.Component {
             contact,
         });
     }
-    
+
     render() {
+        console.log(this.props);
+        const { navigation: { state: { params } } } = this.props;
+        const { contact } = params;
         const {
             avatar, name, email, phone, cell
-        } = this.state.contact;
+        } = contact;
 
         return (
             <View style={styles.container}>
