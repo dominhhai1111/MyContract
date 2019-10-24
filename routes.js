@@ -8,6 +8,7 @@ import Contacts from './screens/Contacts';
 import Profile from './screens/Profile';
 import Favorites from './screens/Favorites';
 import User from './screens/User';
+import Options from './screens/Options';
 
 import colors from './utils/colors';
 
@@ -38,13 +39,6 @@ const AppNavigator = createStackNavigator(
         },
         Favorites: {
             screen: Favorites,
-            navigationOptions: {
-                title: 'Me',
-                headerTintColor: 'white',
-                headerStyle: {
-                    backgroundColor: colors.blue,
-                },
-            },
         },
         User: {
             screen: User,
@@ -99,8 +93,12 @@ const UserScreens = createStackNavigator(
         User: {
             screen: User,
         },
+        Options: {
+            screen: Options,
+        }
     },
     {
+        mode: 'modal',
         initialRouteName: 'User',
         navigationOptions: {
             tabBarIcon: getTabBarIcon('person'),
