@@ -1,6 +1,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createDrawerNavigator} from 'react-navigation-drawer';
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 
@@ -14,7 +15,11 @@ import colors from './utils/colors';
 
 const getTabBarIcon = icon => ({ tintColor }) => (
     <MaterialIcons name={icon} size={26} style={{ color: tintColor }} />
-  );
+);
+
+const getDrawerItemIcon = icon => ({ tintColor }) => (
+    <MaterialIcons name={icon} size={22} style={{ color: tintColor }} />
+);
 
 const AppNavigator = createStackNavigator(
     {
@@ -66,7 +71,8 @@ const ContactsScreens = createStackNavigator(
     {
         initialRouteName: 'Contacts',
         navigationOptions: {
-            tabBarIcon: getTabBarIcon('list'),
+            // tabBarIcon: getTabBarIcon('list'),
+            drawerIcon: getTabBarIcon('list'),
         },
     }
 );
@@ -83,7 +89,8 @@ const FavoritesScreens = createStackNavigator(
     {
         initialRouteName: 'Favorites',
         navigationOptions: {
-            tabBarIcon: getTabBarIcon('star'),
+            // tabBarIcon: getTabBarIcon('star'),
+            drawerIcon: getTabBarIcon('star'),
         },
     }
 );
@@ -101,7 +108,8 @@ const UserScreens = createStackNavigator(
         mode: 'modal',
         initialRouteName: 'User',
         navigationOptions: {
-            tabBarIcon: getTabBarIcon('person'),
+            // tabBarIcon: getTabBarIcon('person'),
+            drawerIcon: getTabBarIcon('person'),
         },
     }
 );
@@ -133,5 +141,23 @@ const TabNavigator = createBottomTabNavigator(
     }
 );
 
+const DrawerNavigator = createDrawerNavigator(
+    {
+        Contacts: {
+            screen: ContactsScreens,
+        },
+        Favorites: {
+            screen: FavoritesScreens,
+        },
+        User: {
+            screen: UserScreens,
+        },
+    },
+    {
+        initialRouteName: 'Contacts',
+    }
+);
+
 // export default AppContainer = createAppContainer(AppNavigator);
-export default AppContainer = createAppContainer(TabNavigator);
+// export default AppContainer = createAppContainer(TabNavigator);
+export default AppContainer = createAppContainer(DrawerNavigator);

@@ -8,7 +8,7 @@ import { fetchUserContact } from '../utils/api';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default class User extends React.Component {
-    static navigationOptions = ({ navigation: { navigate } }) => ({
+    static navigationOptions = ({ navigation }) => ({
         title: 'Me',
         headerTintColor: 'white',
         headerStyle: {
@@ -19,7 +19,15 @@ export default class User extends React.Component {
                 name="settings"
                 size={24}
                 style={{ color: 'white', marginRight: 10 }}
-                onPress={() => navigate('Options')}
+                onPress={() => navigation.navigate('Options')}
+            />
+        ),
+        headerLeft: (
+            <MaterialIcons
+                name="menu"
+                size={24}
+                style={{ color: colors.black, marginLeft: 10 }}
+                onPress={() => navigation.toggleDrawer() }
             />
         ),
     });

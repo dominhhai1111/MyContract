@@ -8,15 +8,25 @@ import {
 } from 'react-native';
 
 import { fetchContacts } from '../utils/api';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import ContactThumbnail from '../components/ContactThumbnail';
+import colors from '../utils/colors';
 
 const keyExtractor = ({ phone }) => phone;
 
 export default class Favorites extends React.Component {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation }) => ({
         title: 'Favorites',
-    };
+        headerLeft: (
+            <MaterialIcons
+                name="menu"
+                size={24}
+                style={{ color: colors.black, marginLeft: 10 }}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        ),
+    });
 
     state = {
         contacts: [],
